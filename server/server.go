@@ -19,6 +19,7 @@ type Server int
 // Heartbeat is a simple check to see if the server is still alive and responding.
 func (t *Server) Heartbeat(args *heartbeat.Args, reply *heartbeat.Reply) error {
 	reply.OK = true
+	log.Println("Received Heartbeat. Sending OK.")
 	return nil
 }
 

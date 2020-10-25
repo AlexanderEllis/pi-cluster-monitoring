@@ -8,6 +8,7 @@ package main
 import (
 	"fmt"
 	"net/rpc"
+	"os"
 	heartbeat "pi-cluster-monitoring/rpc"
 	"time"
 )
@@ -39,8 +40,12 @@ func sendHeartbeat(serverAddress string) {
 }
 
 func main() {
+	// TODO: better way to store these? .env file?
 	allServerIPs := []string{
-		"localhost"}
+		os.Getenv("PI1"),
+		os.Getenv("PI2"),
+		os.Getenv("PI3"),
+		os.Getenv("PI4")}
 
 	for true {
 		for _, server := range allServerIPs {

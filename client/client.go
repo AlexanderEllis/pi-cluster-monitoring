@@ -14,7 +14,7 @@ import (
 )
 
 // HeartbeatInterval determines how often the heartbeats are sent.
-var HeartbeatInterval = 1
+var HeartbeatInterval = 5
 
 func sendHeartbeat(serverAddress string) {
 	client, err := rpc.DialHTTP("tcp", serverAddress+":1234")
@@ -48,8 +48,9 @@ func main() {
 		os.Getenv("PI4")}
 
 	for true {
+		fmt.Println("\nSending heartbeats")
 		for _, server := range allServerIPs {
-			sendHeartbeat(server)
+			go sendHeartbeat(server)
 		}
 
 		time.Sleep(time.Duration(HeartbeatInterval) * time.Second)
